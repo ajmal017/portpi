@@ -1,4 +1,6 @@
 /.vscode
 *.json
-/__pychache__
+__pycache__/
 /raw_data
+/data
+/port_env
