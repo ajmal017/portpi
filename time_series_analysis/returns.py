@@ -13,17 +13,17 @@ class Returns:
         return daily_returns
 
     
-class Distributions(Returns):
-    def __init__(self, close_dataframe):
-        Returns.__init__(self, close_dataframe)
-        self.returns_dataframe = self.simple_net_returns()
-        self.calculate_distirbution_stats(self.returns_dataframe)
+class Distributions():
+    def __init__(self, data):
+        self.returns_dataframe = data
+        self.means, self.stds, self.kurtosis = Distributions.calculate_distirbution_stats(self.returns_dataframe)
 
 
-    def calculate_distirbution_stats(self, returns_dataframe):
-        self.means = returns_dataframe.mean()
-        self.stds = returns_dataframe.std()
-        self.kurtosis = returns_dataframe.kurtosis()
+    def calculate_distirbution_stats(data):
+        means = data.mean()
+        stds = data.std()
+        kurtosis = data.kurtosis()
+        return means, stds, kurtosis
 
 
 
