@@ -13,6 +13,19 @@ class Returns:
         return daily_returns
 
     
-    def compound_returns(self):
-        '''Calculates the compound return over k_steps'''
-        pass
+class Distributions(Returns):
+    def __init__(self, close_dataframe):
+        Returns.__init__(self, close_dataframe)
+        self.returns_dataframe = self.simple_net_returns()
+        self.calculate_distirbution_stats(self.returns_dataframe)
+
+
+    def calculate_distirbution_stats(self, returns_dataframe):
+        self.means = returns_dataframe.mean()
+        self.stds = returns_dataframe.std()
+        self.kurtosis = returns_dataframe.kurtosis()
+
+
+
+    def __repr__(self):
+        return 'means\n{}\nstandard deviations\n{}\nkurtosis\n{}'.format(self.means, self.stds, self.kurtosis)
