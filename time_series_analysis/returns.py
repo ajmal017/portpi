@@ -14,17 +14,34 @@ class Returns:
 
     
 class Distributions():
+
     def __init__(self, data):
         self.returns_dataframe = data
         self.means, self.stds, self.kurtosis = Distributions.calculate_distirbution_stats(self.returns_dataframe)
 
 
     def calculate_distirbution_stats(data):
+        '''Calculates the mean, standard deviation and kurtosis of the input dataframe
+        
+        Args
+        ----
+        data : pandas.DataFrame
+            dataframe which the mean, standard deviation and kurtosis will be calculated on
+
+        Returns
+        -------
+        means : pandas.Series
+            Means of individual columns in data
+        stds : pandas.Series
+            Standard deviation of individual columns in data
+        kurtosis : pandas.Series
+            Kurtosis of individual columns in data
+        '''
+
         means = data.mean()
         stds = data.std()
         kurtosis = data.kurtosis()
         return means, stds, kurtosis
-
 
 
     def __repr__(self):
