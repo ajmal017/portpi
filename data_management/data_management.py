@@ -7,10 +7,27 @@ import pandas as pd
 
 class Data:
     def __init__(self, save_directory='raw_data'):
+        '''Creates a Data object for downloading and storing data. 
+        
+        Args
+        ----
+        save_directory: String
+            Directory which the data will be saved to
+        '''
+
         self.save_directory = save_directory
 
 
     def collect_data(self, start_date='01/01/2000', end_date= datetime.date.today().strftime('%d/%m/%Y')):
+        '''Downloads asset data for a given start and end time range. Stores the downloaded data.
+        
+        Args
+        ----
+        start_data: String
+            Start date for collecting asset data. format should be dd/mm/yyyy
+        end_date: String
+            End date for asset data collection period. Default value is set to today
+        '''
 
         ticker_raw = 'ADANA-AEFES-ULKER-AKBNK-AKGRT-AKSA-ALARK-ALGYO-ALKIM-ANACM-ANHYT-ARCLK-ASELS-AYGAZ-BRISA-BRSAN-BTCIM-BUCIM-CEMTS-CIMSA-CLEBI-DEVA-DOHOL-ECILC-ECZYT-EGEEN-ENKAI-ERBOS-EREGL-FROTO-GARAN-GOODY-GSDHO-GUBRF-GUSGR-HEKTS-IPEKE-ISCTR-ISFIN-ISGYO-KARSN-KARTN-KCHOL-KERVT-KLMSN-KORDS-KRDMD-LOGO-MGROS-NETAS-NTHOL-OTKAR-PETKM-SAHOL-SASA-SISE-SKBNK-SODA-TATGD-TCELL-THYAO-TOASO-TRCAS-TRKCM-TSKB-TUPRS-VESTL-YATAS-AGHOL-YKBNK-ZOREN-KOZAA-TTRAK-DOAS-INDES-BIMAS-VAKBN-CCOLA-KAREL-TAVHL-HALKB-ISMEN-ALBRK-TKFEN-TTKOM-GOZDE-KOZAL-AKSEN-TRGYO-EKGYO-BIZIM-TMSN-HLGYO-PGSUS-ODAS-ISDMR-MAVI-ENJSA-MPARK-SOKM'
         ticker_list = []
@@ -43,12 +60,12 @@ class Data:
         
         Args
         ----
-        dir : string
+        dir : String
             location of the directory
 
         Returns
         -------
-        created : bool
+        created : Boolean
             Creation status of directory, true if directory created, false if directory already existed
         '''
 
@@ -62,6 +79,23 @@ class Data:
 
 
     def compile_close_data(self, symbols, compile_start_date='2000-01-01', compile_end_date= datetime.date.today()):
+        '''Merge the closing prices of the asset data.
+        
+        Args
+        ----
+        symbols: List
+            List of symbols which the data will be used for
+        compile_start_date: String
+            Start date for data useage. Format of date yyyy-mm-dd
+        compile_end_date: String
+            End date for data useage. Format of date yyyy-mm-dd. Default value set for today.
+
+        Returns
+        -------
+        df: pandas.DataFrame
+            Compiled data frame of close prices
+        '''
+
         '''Read stock data (adjusted close) for given symbols from CSV files.'''
         dates = pd.date_range(compile_start_date,compile_end_date)
         df = pd.DataFrame(index=dates)
@@ -85,6 +119,6 @@ class Data:
 
 
     def _symbol_data_path(self, symbol):
-        """Return CSV file path given ticker symbol."""
+        '''Return CSV file path for given symbol.'''
         path = os.path.join(self.save_directory, "{}.csv".format(str(symbol)))
         return path
